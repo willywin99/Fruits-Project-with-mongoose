@@ -30,48 +30,79 @@ const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const personSchema = new mongoose.Schema({
   name: String,
-  age: Number
+  age: Number,
+  favouriteFruit: fruitSchema
 });
 
 const Person = mongoose.model("Person", personSchema);
 
-const person = new Person({
-  name: "John",
-  age: 37
-});
+// const pineapple = new Fruit({
+//   name: "Pineapple",
+//   score: 9,
+//   review: "Great fruit."
+// })
+
+// pineapple.save();
+
+// const person = new Person({
+//   name: "John",
+//   age: 37
+// });
+// const person = new Person({
+//   name: "Amy",
+//   age: 12,
+//   favouriteFruit: pineapple
+// });
 
 // person.save();
 
-// Delete Many
-Person.deleteMany({name: "John", age: 37})
+const mango = new Fruit({
+  name: "Mango",
+  score: 6,
+  review: "Decent fruit."
+})
+
+mango.save();
+// Update Person
+Person.updateOne({name: "John"}, {favouriteFruit: mango})
   .then(res => {
-    console.log("Successfully deleted the document");
-    // mongoose.connection.close();
+    console.log("Succesfully updated the document");
     console.log(res);
+    mongoose.connection.close();
   }).catch(err => {
     console.log(err);
-  }).finally(() => {
-    // mongoose.connection.close();
   })
 
+// // Delete Many
+// Person.deleteMany({name: "John", age: 37})
+//   .then(res => {
+//     console.log("Successfully deleted the document");
+//     // mongoose.connection.close();
+//     console.log(res);
+//   }).catch(err => {
+//     console.log(err);
+//   }).finally(() => {
+//     // mongoose.connection.close();
+//   })
 
-const kiwi = new Fruit({
-  name: "Kiwi",
-  rating: 10,
-  review: "The best fruit!"
-});
 
-const orange = new Fruit({
-  name: "Orange",
-  rating: 4,
-  review: "Too sour for me."
-});
+// const kiwi = new Fruit({
+//   name: "Kiwi",
+//   rating: 10,
+//   review: "The best fruit!"
+// });
 
-const banana = new Fruit({
-  name: "Banana",
-  rating: 3,
-  review: "Weird texture"
-});
+// const orange = new Fruit({
+//   name: "Orange",
+//   rating: 4,
+//   review: "Too sour for me."
+// });
+
+// const banana = new Fruit({
+//   name: "Banana",
+//   rating: 3,
+//   review: "Weird texture"
+// });
 
 // mongoose.connection.close();
 
@@ -107,7 +138,6 @@ const banana = new Fruit({
 //   }).catch(err => {
 //     console.log(err);
 //   })
-
 
 // Delete
 // Fruit.deleteOne({name: "Peach"})
